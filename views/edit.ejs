@@ -1,0 +1,51 @@
+<%- include ("./partials/header") %>
+
+<div
+  class="w-full h-screen bg-zinc-300 flex items-center justify-center bg-center bg-cover"
+>
+  <div class="w-[35vw] bg-white px-20 py-10 rounded-[1.8rem]">
+    <h1
+      class="text-3xl mb-10 text-center font-semibold text-zinc-700 leading-none tracking-tighter capitalize"
+    >
+      Edit Profile
+    </h1>
+    <form action="/edit" method="post">
+      <input
+      class="mt-2 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        type="text"
+        name="username"
+        placeholder="Username"
+        value="<%=userData.username %>"
+      />
+      <input
+      class="mt-2 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        type="text"
+        name="name"
+        placeholder="Full name"
+        value="<%=userData.name %>"
+      />
+      <input
+      class="mt-2 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        type="email"
+        name="email"
+        placeholder="Email"
+        value="<%=userData.email %>"
+      />
+      <input
+      class="mt-2 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        type="number"
+        name="contact"
+        placeholder="Contact"
+        value="<%=userData.contact %>"
+      />
+
+      <input
+      class="block mt-5 w-full py-3 py-2 bg-red-600 text-white rounded-full  hover:bg-red-700"
+        type="submit"
+        value="Edit"
+      />
+    </form>
+  </div>
+</div>
+
+<%- include ("./partials/footer") %>

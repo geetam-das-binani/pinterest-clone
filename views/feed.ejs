@@ -1,0 +1,18 @@
+<%- include ("./partials/header") %>
+<div class="w-full bg-zinc-800 min-h-screen px-10 py-8 text-white">
+  <div class="cards flex flex-wrap gap-10 mt-8">
+    <% allPosts?.map(item => { %>
+        <div class="card w-32">
+            <div class="bg-zinc-700 w-full h-40 rounded-lg overflow-hidden">
+              <img class="w-full h-full object-cover" 
+              src="<%=item.image.url %>" alt="" />
+            </div>
+            <h5 class="mt-2 text-sm"><%=item?.title || ''  %></h5>
+            <h6 class="text-xs opacity-500"> <%=item?.user?.username || '' %></h6>
+          </div>
+    <% }) %>
+   
+   
+  </div>
+</div>
+<%- include ("./partials/footer") %>
