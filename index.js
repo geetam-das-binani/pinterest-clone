@@ -1,7 +1,8 @@
 require("dotenv").config();
 const connectToDb = require("./connection/database.js");
 const express = require("express");
-const userRouter = require("./routes/api.js");
+const userRouter = require("./routes/userRoutes.js");
+const postRouter = require("./routes/postRoutes.js");
 const passport = require("passport");
 const session = require("express-session");
 const Usermodel=require('./models/userSchema.js')
@@ -40,6 +41,8 @@ cloudinary.config({
 
 
 app.use("/", userRouter);
+app.use("/", postRouter);
+// app.use("/", userRouter);
 
 connectToDb()
   .then((_) => {
