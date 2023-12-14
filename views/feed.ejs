@@ -5,7 +5,7 @@
         <div class="card w-32">
             <div class="bg-zinc-700 w-full h-40 rounded-lg overflow-hidden">
               <img class="w-full h-full object-cover" 
-              src="<%=item.image.url %>" alt="" />
+              src="/images/uploads/<%= item.image %>" alt="" />
             </div>
             <h5 class="mt-2 text-sm"><%=item?.title || ''  %></h5>
             <h6 class="text-xs opacity-500"> <%=item?.user?.username || '' %></h6>
