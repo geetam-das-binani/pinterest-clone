@@ -53,69 +53,94 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  req.logOut((err) => {
-    if (err) return next(err);
-    res.redirect("/");
-  });
+  try {
+    req.logOut((_) => {
+      
+      res.redirect("/");
+    });
+  } catch (err) {
+    res.redirect('/profile')
+  }
+
 };
 
 exports.fileUploadforPic = async (req, res) => {
-  const userData = await userModel.findOne({
-    username: req.session.passport.user,
-  });
-  const inputId = userData.profileImg.public_id;
-
-  await cloudinary.uploader.destroy(inputId);
-  const mycloud = await cloudinary.uploader.upload(req.file.path, {
-    folder: "pinterest profile images",
-    width: 150,
-    crop: "scale",
-  });
-
-  userData.profileImg = {
-    public_id: mycloud.public_id,
-    url: mycloud.url,
-  };
-  await userData.save();
-  res.redirect("/profile");
+  
+  try {
+    const userData = await userModel.findOne({
+      username: req.session.passport.user,
+    });
+    const inputId = userData.profileImg.public_id;
+  
+    await cloudinary.uploader.destroy(inputId);
+    const mycloud = await cloudinary.uploader.upload(req.file.path, {
+      folder: "pinterest profile images",
+      width: 150,
+      crop: "scale",
+    });
+  
+    userData.profileImg = {
+      public_id: mycloud.public_id,
+      url: mycloud.url,
+    };
+    await userData.save();
+    res.redirect("/profile");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.goToEditDetailsPage = async (req, res) => {
-  const userData = await userModel.findOne({
-    username: req.session.passport.user,
-  });
-  res.render("edit", { userData, nav: req.isAuthenticated() });
+  try {
+    const userData = await userModel.findOne({
+      username: req.session.passport.user,
+    });
+    res.render("edit", { userData, nav: req.isAuthenticated() });
+    
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.editDetails = async (req, res) => {
-  const { email, name, contact, username } = req.body;
-
-  const userData = await userModel.findOne({
-    username: req.session.passport.user,
-  });
-  userData.email = email;
-  userData.name = name;
-  userData.contact = contact;
-  userData.username = username;
-  // Update the session with the new username
-  req.session.passport.user = username;
-
-  // Save changes to the database
-  await userData.save();
-
-  // Save the session to ensure changes take effect
-  await req.session.save();
-
- 
-
-  res.redirect("/profile");
+  try {
+    
+    const { email, name, contact, username } = req.body;
+  
+    const userData = await userModel.findOne({
+      username: req.session.passport.user,
+    });
+    userData.email = email;
+    userData.name = name;
+    userData.contact = contact;
+    userData.username = username;
+    // Update the session with the new username
+    req.session.passport.user = username;
+  
+    // Save changes to the database
+    await userData.save();
+  
+    // Save the session to ensure changes take effect
+    await req.session.save();
+  
+   
+  
+    res.redirect("/profile");
+  } catch (error) {
+    console.log(error);
+  }
 };
 exports.goToProfile = async (req, res, next) => {
-  const userData = await userModel
-    .findOne({
-      username: req.session.passport.user,
-    })
-    .populate("posts");
-
-  res.render("profile", { userData, nav: req.isAuthenticated() });
+  try {
+    const userData = await userModel
+      .findOne({
+        username: req.session.passport.user,
+      })
+      .populate("posts");
+  
+    res.render("profile", { userData, nav: req.isAuthenticated() });
+    
+  } catch (error) {
+    console.log(error);
+  }
 };
